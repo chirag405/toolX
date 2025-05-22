@@ -15,7 +15,7 @@ function ThumbnailGeneration({ videoId }: { videoId: string }) {
   });
 
   return (
-    <div className="rounded-xl flex flex-col p-4 border">
+    <div className="bg-card text-card-foreground rounded-lg p-4 border border-border shadow-sm flex flex-col">
       <div className="min-w-52">
         {/* <Usage
           featureFlag={FeatureFlag.IMAGE_GENERATION}
@@ -46,9 +46,9 @@ function ThumbnailGeneration({ videoId }: { videoId: string }) {
 
       {/* No images generated yet */}
       {!images?.length && (
-        <div className="text-center py-8 px-4 rounded-lg mt-4 border-2 border-dashed border-gray-200">
-          <p className="text-gray-500">No thumbnails have been generated yet</p>
-          <p className="text-sm text-gray-400 mt-1">
+        <div className="text-center py-8 px-4 rounded-lg mt-4 border-2 border-dashed border-border">
+          <p className="text-muted-foreground">No thumbnails have been generated yet</p>
+          <p className="text-sm text-muted-foreground/80 mt-1">
             Generate thumbnails to see them appear here
           </p>
         </div>

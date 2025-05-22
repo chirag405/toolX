@@ -2,14 +2,18 @@
 
 import { createOrGetVideo } from "@/actions/createOrGetVideo";
 import AiAgentChat from "@/components/AiAgentChat";
-import ThumbnailGeneration from "@/components/ThumbNailGeneratino";
+import ThumbnailGeneration from "@/components/ThumbnailGeneration";
 import YoutubeVideoDetails from "@/components/YoutubeVideoDetails";
 
 import TitleGenerations from "@/components/TitleGenerations";
 import Transcription from "@/components/Transcription";
 
 import { Doc } from "@/convex/_generated/dataModel";
-
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert";
 import { useUser } from "@clerk/nextjs";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -48,37 +52,37 @@ function AnalysisPage() {
 
   const VideoTranscriptionStatus =
     video === undefined ? (
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-50 border border-gray-200 rounded-full">
-        <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" />
-        <span className="text-sm text-gray-700">Loading...</span>
-      </div>
+      <Alert variant="default" className="items-center">
+        <div className="w-2 h-2 bg-muted-foreground rounded-full animate-pulse mr-2" />
+        <AlertTitle className="text-sm text-muted-foreground mb-0">Loading...</AlertTitle>
+      </Alert>
     ) : !video ? (
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-full">
-        <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
-        <p className="text-sm text-amber-700">
+      <Alert variant="default" className="items-center bg-amber-500/10 border-amber-500/20 text-amber-700 dark:text-amber-300">
+        <div className="w-2 h-2 bg-amber-500 rounded-full animate-pulse mr-2" />
+        <AlertDescription className="text-sm text-amber-700 dark:text-amber-400">
           This is your first time analyzing this video. <br />
           <span className="font-semibold">
             (1 Analysis token is being used!)
           </span>
-        </p>
-      </div>
+        </AlertDescription>
+      </Alert>
     ) : (
-      <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-full">
-        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-        <p className="text-sm text-green-700">
+      <Alert variant="default" className="items-center bg-green-500/10 border-green-500/20 text-green-700 dark:text-green-300">
+        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2" />
+        <AlertDescription className="text-sm text-green-700 dark:text-green-400">
           Analysis exists for this video - no additional tokens needed in future
           calls! <br />
-        </p>
-      </div>
+        </AlertDescription>
+      </Alert>
     );
 
   return (
     <div className="xl:container mx-auto px-4 md:px-0">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Left Side */}
-        <div className="order-2 lg:order-1 flex flex-col gap-4 bg-white lg:border-r border-gray-200 p-6">
+        <div className="order-2 lg:order-1 flex flex-col gap-4 bg-background lg:border-r border-border p-6">
           {/* Analysis Section */}
-          <div className="flex flex-col gap-4 p-4 border border-gray-200 rounded-xl">
+          <div className="flex flex-col gap-4 p-4 border border-border rounded-lg">
             {/* <Usage
               featureFlag={FeatureFlag.ANALYSE_VIDEO}
               title="Analyse Video"

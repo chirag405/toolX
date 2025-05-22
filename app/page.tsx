@@ -1,6 +1,12 @@
 import AgentPulse from "@/components/AgentPulse";
 import YoutubeVideoForm from "@/components/YtVideoForm";
-
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Brain,
   Image as ImageIcon,
@@ -80,21 +86,21 @@ const features = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
+      <section className="py-20 bg-gradient-to-b from-background to-muted">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center gap-10 text-center mb-12">
             <AgentPulse size="large" color="blue" />
 
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6">
               Meet Your Personal{" "}
               <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
                 AI Content Agent
               </span>
             </h1>
 
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               Transform your video content with AI-powered analysis,
               transcription, and insights. Get started in seconds.
             </p>
@@ -105,9 +111,9 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
             Powerful Features for Content Creators
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -115,21 +121,33 @@ export default function Home() {
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
-                <div
-                  key={index}
-                  className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 transition-all duration-300"
-                >
-                  <div
-                    className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${feature.iconBg}`}
-                  >
-                    <Icon className={`w-6 h-6 ${feature.iconColor}`} />
-                  </div>
-
-                  <h3 className="text-xl font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
+                <Card key={index} className="hover:border-primary/80 transition-all duration-300">
+                  <CardHeader>
+                    <div
+                      className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
+                        feature.iconBg === "bg-blue-100" ? "bg-primary/10" :
+                        feature.iconBg === "bg-green-100" ? "bg-green-500/10" :
+                        feature.iconBg === "bg-purple-100" ? "bg-purple-500/10" :
+                        feature.iconBg === "bg-yellow-100" ? "bg-yellow-500/10" :
+                        feature.iconBg === "bg-red-100" ? "bg-red-500/10" :
+                        feature.iconBg === "bg-orange-100" ? "bg-orange-500/10" : feature.iconBg
+                      }`}
+                    >
+                      <Icon className={`w-6 h-6 ${
+                        feature.iconColor === "text-blue-600" ? "text-primary" :
+                        feature.iconColor === "text-green-600" ? "text-green-600" :
+                        feature.iconColor === "text-purple-600" ? "text-purple-600" :
+                        feature.iconColor === "text-yellow-600" ? "text-yellow-600" :
+                        feature.iconColor === "text-red-600" ? "text-red-600" :
+                        feature.iconColor === "text-orange-600" ? "text-orange-600" : feature.iconColor
+                      }`} />
+                    </div>
+                    <CardTitle>{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>
@@ -137,9 +155,9 @@ export default function Home() {
       </section>
 
       {/* How it works sections */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4 max-w-6xl">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
             Meet Your AI Agent in 3 Simple Steps
           </h2>
 
@@ -147,16 +165,17 @@ export default function Home() {
             {steps.map((step, index) => {
               const Icon = step.icon;
               return (
-                <div
-                  key={index}
-                  className="text-center p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all"
-                >
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                </div>
+                <Card key={index} className="text-center hover:shadow-lg transition-all">
+                  <CardHeader>
+                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-8 h-8 text-primary-foreground" />
+                    </div>
+                    <CardTitle>{step.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>

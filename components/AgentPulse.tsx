@@ -11,9 +11,7 @@ const AgentPulse = ({ size = "medium", color = "blue" }: AgentPulseProps) => {
     large: "w-16 h-16",
   };
   const colorClasses = {
-    blue: "bg-blue-500 shadow-[0_0_8px_4px_rgba(59,130,246,0.5)]",
-    green: "bg-green-500 shadow-[0_0_8px_4px_rgba(34,197,94,0.5)]",
-    purple: "bg-purple-500 shadow-[0_0_8px_4px_rgba(168,85,247,0.5)]",
+    blue: "bg-primary shadow-lg dark:shadow-primary/80 shadow-primary/50",
   };
   return (
     <div

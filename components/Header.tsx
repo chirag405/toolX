@@ -1,12 +1,13 @@
 import React from "react";
 import AgentPulse from "./AgentPulse";
+import { ModeToggle } from "@/components/mode-toggle";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 left-0 z-50 bg-white shadow-md">
+    <header className="sticky top-0 left-0 z-50 bg-white dark:bg-background shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-4">
           {/* Left: Logo */}
@@ -40,6 +41,7 @@ const Header = () => {
                 {/* </Link> */}
               </SignInButton>
             </SignedOut>
+            <ModeToggle />
           </div>
         </div>
       </div>
