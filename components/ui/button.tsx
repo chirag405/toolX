@@ -4,27 +4,24 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
+// Updated buttonVariants to use DaisyUI classes
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "btn", // Base DaisyUI button class
   {
     variants: {
       variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
-        outline:
-          "border border-input bg-background shadow-xs hover:bg-accent hover:text-accent-foreground",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        default: "btn-primary", // Maps to DaisyUI primary button
+        destructive: "btn-error", // Maps to DaisyUI error button (for destructive actions)
+        outline: "btn-outline", // Maps to DaisyUI outline button
+        secondary: "btn-secondary", // Maps to DaisyUI secondary button
+        ghost: "btn-ghost", // Maps to DaisyUI ghost button
+        link: "btn-link", // Maps to DaisyUI link button
       },
       size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "size-9",
+        default: "", // DaisyUI default size (btn-md effectively)
+        sm: "btn-sm", // Maps to DaisyUI small button
+        lg: "btn-lg", // Maps to DaisyUI large button
+        icon: "btn-square", // Maps to DaisyUI square button for icons (could also be btn-circle)
       },
     },
     defaultVariants: {
@@ -33,6 +30,11 @@ const buttonVariants = cva(
     },
   }
 )
+
+// Additional classes for focus-visible and aria-invalid that DaisyUI might not cover as specifically
+// These can be added to the cn() call if needed, or we rely on DaisyUI's default handling.
+// For now, we'll keep them minimal as DaisyUI handles most states.
+// const accessibilityClasses = "outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-[invalid=true]:border-destructive aria-[invalid=true]:ring-destructive";
 
 function Button({
   className,
@@ -46,9 +48,13 @@ function Button({
   }) {
   const Comp = asChild ? Slot : "button"
 
+  // Note: The original had more complex focus and aria-invalid styles.
+  // DaisyUI's 'btn' class handles many of these states.
+  // If specific focus/aria styling from the original is critical and not covered by DaisyUI,
+  // it would need to be added back carefully, possibly by extending DaisyUI classes or via `cn`.
   return (
     <Comp
-      data-slot="button"
+      data-slot="button" // Keep data-slot for consistency if used elsewhere
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     />
