@@ -2,48 +2,33 @@ import React from "react";
 import AgentPulse from "./AgentPulse";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { Button } from "./ui/button";
+// Removed: import { Button } from "./ui/button"; // DaisyUI will provide btn styles
 
 const Header = () => {
   return (
-    <header className="sticky top-0 left-0 z-50 bg-white shadow-md">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
-          {/* Left: Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="flex items-center">
-              <AgentPulse size="small" color="blue" />
-            </div>
-            <h2 className="text-xl font-bold leading-none">ToolX</h2>
-          </Link>
-
-          {/* Right: Authentication and Actions */}
-          <div className="flex items-center gap-4">
-            <SignedIn>
-              <Link href="/manage-plan">
-                <Button
-                  variant="outline"
-                  className="bg-gradient-to-r from-blue-600 to-blue-400 text-white"
-                >
-                  Manage Plan
-                </Button>
-              </Link>
-              <div className="w-10 h-10 flex items-center justify-center rounded-full border bg-blue-100 border-blue-200">
-                <UserButton />
-              </div>
-            </SignedIn>
-
-            <SignedOut>
-              <SignInButton mode="modal">
-                {/* <Link href="/sign-in"> */}
-                <Button variant="outline">Sign in</Button>
-                {/* </Link> */}
-              </SignInButton>
-            </SignedOut>
-          </div>
-        </div>
+    <div className="navbar bg-base-100 shadow-md sticky top-0 left-0 z-50">
+      <div className="navbar-start">
+        <Link href="/" className="btn btn-ghost normal-case text-xl">
+          <AgentPulse size="small" color="blue" />
+          ToolX
+        </Link>
       </div>
-    </header>
+      <div className="navbar-end">
+        <SignedIn>
+          <Link href="/manage-plan" className="mr-4">
+            <button className="btn btn-primary">Manage Plan</button>
+          </Link>
+          <div className="w-10 h-10 flex items-center justify-center rounded-full border border-base-300">
+            <UserButton />
+          </div>
+        </SignedIn>
+        <SignedOut>
+          <SignInButton mode="modal">
+            <button className="btn btn-outline btn-primary">Sign in</button>
+          </SignInButton>
+        </SignedOut>
+      </div>
+    </div>
   );
 };
 

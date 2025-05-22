@@ -84,56 +84,57 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-col  min-h-screen py-2 px-6 bg-amber-100">
-      {/* hero section */}
-
-      <section className="container mx-auto px-4 mt-10">
-        <div className="flex flex-col items-center ">
-          <AgentPulse size="medium" color="blue" />
-          <div className="text-4xl md:text-6xl font-semibold text-center">
-            <h1>Meet your personal </h1>
-            <span className="bg-gradient-to-b from-blue-600 to-blue-400 bg-clip-text  text-transparent">
-              AI content Agent
-            </span>
-
-            <p className=" text-lg md:text-2xl text-center mt-4 ">
+    <div className="flex flex-col min-h-screen bg-base-200">
+      {/* Hero Section */}
+      <section className="hero min-h-[60vh] bg-base-100">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <AgentPulse size="medium" color="blue" />
+            <h1 className="text-5xl font-bold mt-4">Meet your personal</h1>
+            <h1 className="text-5xl font-bold bg-gradient-to-b from-primary to-secondary bg-clip-text text-transparent">
+              AI Content Agent
+            </h1>
+            <p className="py-6 text-lg">
               Create content in seconds with AI powered tools and templates for
-              your business needs
+              your business needs.
             </p>
+            {/* The YoutubeVideoForm will be part of the hero content */}
+            <div className="mt-6">
+              <YoutubeVideoForm />
+            </div>
           </div>
         </div>
-        <div className="flex justify-center mt-10 py-10">
-          <YoutubeVideoForm />
-        </div>
       </section>
+
       {/* Features Section */}
-      <section className="py-20 px-15 bg-white">
+      <section className="py-20 px-4 md:px-0 bg-base-200">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">
             Powerful Features for Content Creators
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="container mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* features */}
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-200 hover:border-blue-500 transition-all duration-300"
+                className="card card-bordered bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out"
               >
-                <div
-                  className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${feature.iconBg}`}
-                >
-                  <Icon
-                    className="w-6 h-6"
-                    style={{ color: feature.iconColor }}
-                  />
+                <div className="card-body items-center text-center">
+                  <div
+                    className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${feature.iconBg}`}
+                  >
+                    <Icon
+                      className="w-8 h-8"
+                      style={{ color: feature.iconColor }}
+                    />
+                  </div>
+                  <h2 className="card-title">{feature.title}</h2>
+                  <p>{feature.description}</p>
                 </div>
-
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
               </div>
             );
           })}
@@ -141,27 +142,28 @@ export default function Home() {
       </section>
 
       {/* Steps Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-base-100">
         <div className="container mx-auto px-4 max-w-6xl">
           <h2 className="text-3xl font-bold text-center mb-12">
             Meet Your AI Agent in 3 Simple Steps
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="container mx-auto px-4 grid md:grid-cols-3 gap-8">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
               <div
                 key={index}
-                className="text-center p-6 rounded-xl bg-white shadow-md hover:shadow-lg transition-all"
+                className="card card-bordered bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300 ease-in-out"
               >
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-8 h-8 text-white" />
+                <div className="card-body items-center text-center">
+                  <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Icon className="w-8 h-8 text-primary-content" />
+                  </div>
+                  <h2 className="card-title">{step.title}</h2>
+                  <p>{step.description}</p>
                 </div>
-
-                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                <p className="text-gray-600">{step.description}</p>
               </div>
             );
           })}
@@ -169,15 +171,18 @@ export default function Home() {
       </section>
 
       {/* footer */}
-
-      <section className="py-20 px-4 md:px-0 bg-gradient-to-r from-blue-600 to-blue-400">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
-            Ready to Meet Your AI Content Agent?
-          </h2>
-          <p className="text-xl text-blue-50">
-            Join creators leveraging AI to unlock content insights.
-          </p>
+      <section className="hero py-20 bg-primary text-primary-content">
+        <div className="hero-content text-center">
+          <div className="max-w-md">
+            <h2 className="text-3xl font-bold mb-6">
+              Ready to Meet Your AI Content Agent?
+            </h2>
+            <p className="text-xl">
+              Join creators leveraging AI to unlock content insights.
+            </p>
+            {/* Optional: Add a CTA button here if desired */}
+            {/* <button className="btn btn-secondary mt-6">Get Started</button> */}
+          </div>
         </div>
       </section>
     </div>
