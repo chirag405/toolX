@@ -1,8 +1,8 @@
 // "use client";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { SchematicProvider } from "@schematichq/schematic-react";
-import SchematicWrapped from "./SchematicWrapped";
+// import { SchematicProvider } from "@schematichq/schematic-react";
+// import SchematicWrapped from "./SchematicWrapped";
 
 export default function ChildWrapper({
   children,
@@ -16,11 +16,13 @@ export default function ChildWrapper({
   // }
   return (
     <ClerkProvider>
-      <SchematicProvider
-        publishableKey={process.env.NEXT_PUBLIC_SCHEMATIC_PUBLIC_KEY!}
-      >
-        <SchematicWrapped> {children}</SchematicWrapped>
-      </SchematicProvider>
+      {/* <SchematicProvider */}
+      {/* // publishableKey={process.env.NEXT_PUBLIC_SCHEMATIC_PUBLIC_KEY!} */}
+      {/* > */}
+      {/* <SchematicWrapped> */}
+      {children}
+      {/* </SchematicWrapped> */}
+      {/* </SchematicProvider> */}
     </ClerkProvider>
   );
 }

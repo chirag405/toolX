@@ -13,11 +13,19 @@ export async function titleGeneration(
   videoSummary: string,
   considerations: string
 ) {
+  console.log("🎯 Starting title generation process");
+  console.log("🎯 Input videoId:", videoId);
+  console.log("🎯 Input videoSummary:", videoSummary);
+  console.log("🎯 Input considerations:", considerations);
+
   const user = await currentUser();
 
   if (!user?.id) {
+    console.error("❌ User not found");
     throw new Error("User not found");
   }
+
+  console.log("🎯 User ID:", user.id);
 
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -45,14 +53,19 @@ export async function titleGeneration(
       max_tokens: 500,
     });
 
+    console.log("🎯 OpenAI response received");
+
     const title =
       response.choices[0]?.message?.content || "Unable to generate title";
 
     if (!title) {
+      console.error("❌ Failed to generate title (System error)");
       return {
         error: "Failed to generate title (System error)",
       };
     }
+
+    console.log("🎯 Generated title:", title);
 
     await convexClient.mutation(api.titles.generate, {
       videoId,
@@ -60,17 +73,7 @@ export async function titleGeneration(
       title: title,
     });
 
-    // await client.track({
-    //   event: featureFlagEvents[FeatureFlag.TITLE_GENERATIONS].event,
-    //   company: {
-    //     id: user.id,
-    //   },
-    //   user: {
-    //     id: user.id,
-    //   },
-    // });
-
-    console.log("🎯 Title generated:", title);
+    console.log("🎯 Title saved to database");
 
     return title;
   } catch (error) {
