@@ -24,6 +24,24 @@ export const getImages = query({
   },
 });
 
+// Count images for a specific user and video combination
+export const countImagesByUserAndVideo = query({
+  args: {
+    userId: v.string(),
+    videoId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const images = await ctx.db
+      .query("images")
+      .withIndex("by_user_and_video", (q) =>
+        q.eq("userId", args.userId).eq("videoId", args.videoId)
+      )
+      .collect(); // Collect all matching images
+
+    return images.length; // Return the count of the collected images
+  },
+});
+
 export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });

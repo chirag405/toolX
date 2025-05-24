@@ -2,6 +2,7 @@
 
 import { api } from "@/convex/_generated/api";
 import { getConvexClient } from "@/lib/getConvexClient";
+import { countImagesByUserAndVideo } from "../convex/images"; // Assuming this path is correct
 
 import { currentUser } from "@clerk/nextjs/server";
 import OpenAI from "openai";
@@ -14,6 +15,18 @@ export const dalleImageGeneration = async (prompt: string, videoId: string) => {
 
   if (!user?.id) {
     throw new Error("User not found");
+  }
+
+  // Check thumbnail generation limit
+  const imageCount = await convexClient.query(api.images.countImagesByUserAndVideo, {
+    userId: user.id,
+    videoId: videoId,
+  });
+
+  if (imageCount >= 2) {
+    throw new Error(
+      "Thumbnail generation limit reached. You can only generate up to 2 thumbnails per video."
+    );
   }
 
   const openai = new OpenAI({

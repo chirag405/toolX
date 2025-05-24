@@ -30,9 +30,16 @@ function AiAgentChat({ videoId }: { videoId: string }) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  const { messages, input, handleInputChange, handleSubmit, append, status } =
-    useChat({
-      maxSteps: 5,
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    append,
+    status,
+    error, // Destructure error here
+  } = useChat({
+    maxSteps: 5,
       body: {
         videoId,
       },
@@ -75,10 +82,12 @@ function AiAgentChat({ videoId }: { videoId: string }) {
         });
         break;
       case "error":
-        console.log("Error status:", status);
-        toastId = toast("Whoops! Something went wrong, please try again.", {
-          id: toastId,
-          icon: <BotIcon className="w-4 h-4" />,
+        console.log("Error status:", status, error); // Log the error object as well
+        const errorMessage =
+          error?.message || "Whoops! Something went wrong, please try again.";
+        toast.error(errorMessage, { // Use toast.error
+          id: toastId, // toastId might need to be managed differently if you want to update existing toast
+          icon: <BotIcon className="w-6 h-6" />, // Original spec said w-6 h-6, current code w-4 h-4. I'll use w-6 h-6 as per spec.
         });
         break;
       case "ready":
